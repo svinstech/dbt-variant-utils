@@ -12,7 +12,12 @@
 
     select
     {%- for ic in include_columns %}
-        {{ ic }},
+        {%- if length(keys) | int > 0 or not loop.last -%}
+            {%- set query_part = " " + ic + "," -%}
+        {%- else -%}
+            {%- set query_part = " " + ic -%}
+        {%- endif -%}
+        {{ query_part }}
     {%- endfor -%}
     {%- for k in keys -%}
     {%- set alias_key = alias_keys[loop.index0] -%}
