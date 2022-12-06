@@ -10,10 +10,10 @@
     {%- set alias_keys = [] -%}
     {%- endif -%}
 
-    select
+    select 
     {%- for ic in include_columns %}
         {%- if length(keys) | int > 0 or not loop.last -%}
-            {{ ic }},
+            {{ ic }}, 
         {%- else -%}
             {{ ic }}
         {%- endif -%}
