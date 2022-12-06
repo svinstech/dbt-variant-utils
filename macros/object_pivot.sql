@@ -14,10 +14,10 @@
     {%- for ic in include_columns %}
         {%- if length(keys) | int > 0 or not loop.last -%}
             {%- set query_part = " " + ic + "," -%}
-            {{ query_part }}
         {%- else -%}
-            {{ ic }}
+            {%- set query_part = " " + ic -%}
         {%- endif -%}
+        {{ query_part }}
     {%- endfor -%}
     {%- for k in keys -%}
     {%- set alias_key = alias_keys[loop.index0] -%}
