@@ -12,7 +12,7 @@
 
     select
     {%- for ic in include_columns %}
-        {%- if int(length(keys)) > 0 or (keys == [] and not loop.last) -%}
+        {%- if length(keys) | int > 0 or (keys == [] and not loop.last) -%}
             {{ ic }},
         {%- else -%}
             {{ ic }}
