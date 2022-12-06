@@ -13,7 +13,7 @@
     select 
     {%- for ic in include_columns %}
         {%- if length(keys) | int > 0 or not loop.last -%}
-        {%- set query_part = " " + {{ ic }}, -%}
+        {%- set query_part = '" " + {{ ic }},' -%}
         {%- else -%}
             {{ ic }}
         {%- endif -%}
