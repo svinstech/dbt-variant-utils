@@ -4,7 +4,8 @@
             typeof(" ~ c ~ ") as type, 
             ifnull(len(split(" ~ c ~ ", '.')[1]), 2) as precision 
         from " ~ t ~ " 
-        where type is not null 
+        where type != 'NULL_VALUE'
+        order by type
         limit 1" %}
     {%- set type_query = run_query(query) -%}
 
