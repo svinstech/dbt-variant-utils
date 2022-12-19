@@ -18,8 +18,8 @@
     {%- set alias_key = alias_keys[loop.index0] -%}
         {%- if k not in exclude_keys -%}
             {%- if primitive -%}
-                {%- if k in force_varchar -%}
-                    as_varchar("get(" ~ c ~ ", '" ~ k ~ "')") as {{ alias_key }}
+                {%- if k in force_varchar %}
+                    as_varchar(get({{ c }}, '{{ k }}')) as {{ alias_key }}
                 {%- else -%}
                     {{ dbt_variant_utils.as_primitive(t, "get(" ~ c ~ ", '" ~ k ~ "')") }} as {{ alias_key }}
                 {%- endif -%}
