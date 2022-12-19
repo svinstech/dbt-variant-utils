@@ -5,7 +5,7 @@
             typeof(parsed) as type, 
             ifnull(len(split(parsed, '.')[1]), 2) as precision 
         from " ~ t ~ " 
-        where type != 'NULL_VALUE'
+        where ifnull(type, 'NULL_VALUE') != 'NULL_VALUE'
         order by type, length(parsed) desc
         limit 1" %}
     {%- set type_query = run_query(query) -%}
