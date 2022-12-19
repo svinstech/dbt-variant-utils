@@ -1,11 +1,12 @@
 {%- macro as_primitive(t, c) -%}
     {% set query = "
-        select 
-            typeof(" ~ c ~ ") as type, 
-            ifnull(len(split(" ~ c ~ ", '.')[1]), 2) as precision 
+        select
+            ifnull(try_parse_json(" ~ c ~ "), " ~ c ~ ") as parsed,
+            typeof(parsed) as type, 
+            ifnull(len(split(parsed, '.')[1]), 2) as precision 
         from " ~ t ~ " 
         where type != 'NULL_VALUE'
-        order by type, length(" ~ c ~ ") desc
+        order by type, length(parsed) desc
         limit 1" %}
     {%- set type_query = run_query(query) -%}
 
