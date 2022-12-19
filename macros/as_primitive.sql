@@ -11,8 +11,8 @@
     {%- set type_query = run_query(query) -%}
 
     {%- if execute -%}
-    {%- set type = type_query.columns[0][0] -%}
-    {%- set precision = type_query.columns[1][0] -%}
+    {%- set type = type_query.columns[1][0] -%}
+    {%- set precision = type_query.columns[2][0] -%}
     {%- else -%}
     {%- set type = none -%}
     {%- set precision = none -%}
