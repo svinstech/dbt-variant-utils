@@ -15,7 +15,7 @@ jobs:
             - run:
                   name: Install dbt dependencies
                   command: pipenv run dbt deps --profiles-dir profile --target slimci
-                  working_directory: integration_test
+                  working_directory: integration_tests
             - run:
                   name: dbt build
                   command: >
@@ -23,7 +23,7 @@ jobs:
                       --full-refresh
                       --profiles-dir profile
                       --target slimci
-                  working_directory: integration_test
+                  working_directory: integration_tests
 
 workflows:
     main:
