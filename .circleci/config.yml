@@ -31,3 +31,4 @@ workflows:
             - test:
                   context:
                       - dockerhub-creds
+                      - snowflake
