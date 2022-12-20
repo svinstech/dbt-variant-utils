@@ -1,6 +1,6 @@
 idx,input
 1,{}
 2,"{""foo"": null, ""excluded_key"": ""somevalue""}"
-3,"{""foo"": ""bar"", ""zip"": ""09932""}"
+3,"{""foo"": ""bar"", ""zip"": ""09932"", ""thud"": ""1.25""}"
 4,"{""foo"": ""baz"", ""qux"": true, ""thud"": 1.32, ""zip"": ""47223""}"
 5,"{""qux"": false, ""thud"": 0.3234, ""name with.space"": ""a value""}"

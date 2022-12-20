@@ -3,5 +3,6 @@
     'parsed_input',
     exclude_keys=['excluded_key'],
     include_columns=['idx'],
-    force_varchar=['zip']
+    force_varchar=['zip'],
+    try_casting=True
 ) }}

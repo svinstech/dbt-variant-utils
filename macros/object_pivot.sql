@@ -1,4 +1,4 @@
-{%- macro object_pivot(t, c, primitive=true, include_columns=[], exclude_keys=['null'], force_varchar=[]) -%}
+{%- macro object_pivot(t, c, primitive=true, include_columns=[], exclude_keys=['null'], force_varchar=[], try_casting=False) -%}
     {%- set query = "select distinct key, regexp_replace(key, '[ .]', '_') as alias_key from " ~ t ~ ", lateral flatten(" ~ c ~ ")" -%}
     {%- set keys_query = run_query(query) -%}
     
@@ -21,7 +21,7 @@
                 {%- if k in force_varchar %}
                     as_varchar(get({{ c }}, '{{ k }}')) as {{ alias_key }}
                 {%- else -%}
-                    {{ dbt_variant_utils.as_primitive(t, "get(" ~ c ~ ", '" ~ k ~ "')") }} as {{ alias_key }}
+                    {{ dbt_variant_utils.as_primitive(t, "get(" ~ c ~ ", '" ~ k ~ "')", try_casting) }} as {{ alias_key }}
                 {%- endif -%}
             {%- else -%}
                 get({{ c }}, '{{ k }}') as {{ alias_key }}
