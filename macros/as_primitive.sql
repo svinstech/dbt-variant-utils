@@ -22,7 +22,7 @@
         {%- if try_casting %}
             {%- if type|lower == 'decimal' %}
                 try_cast({{ c }}::string as {{ type|lower }}(38, {{ scale }}))
-            {%- elif type|lower == 'array' %}
+            {%- elif type|lower in ['array', 'object'] %}
                 as_{{ type|lower }}({{ c }})
             {%- else %}
                 try_cast({{ c }}::string as {{ type|lower }})
