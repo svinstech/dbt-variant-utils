@@ -5,6 +5,9 @@
             typeof(parsed) as type, 
             ifnull(len(split(parsed, '.')[1]), 2) as scale 
         from " ~ t ~ " 
+        -- two scenarios:
+            -- key c exists in the JSON, but the value is null, type = NULL_VALUE
+            -- key c doesn't exists in the JSON, type = null
         where ifnull(type, 'NULL_VALUE') != 'NULL_VALUE'
         order by type, length(parsed) desc
         limit 1" %}
