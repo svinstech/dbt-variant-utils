@@ -36,6 +36,10 @@ models:
         tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: number
+      - name: cast_string_number
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: number
   - name: stg_object_pivot
     columns:
       - name: parsed_input
@@ -60,6 +64,10 @@ models:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: number
       - name: name_with_space
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: varchar
+      - name: zip
         tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: varchar

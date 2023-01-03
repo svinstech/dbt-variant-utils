@@ -1,0 +1,34 @@
+version: 2.1
+
+orbs:
+    python: circleci/python@1.2.0
+
+jobs:  
+    test:
+        docker:
+            - image: cimg/python:3.9
+        steps:
+            - checkout
+            - python/install-packages:
+                  pkg-manager: pipenv
+                  args: --dev
+            - run:
+                  name: Install dbt dependencies
+                  command: pipenv run dbt deps --profiles-dir profile --target slimci
+                  working_directory: integration_tests
+            - run:
+                  name: dbt build
+                  command: >
+                      pipenv run dbt build 
+                      --full-refresh
+                      --profiles-dir profile
+                      --target slimci
+                  working_directory: integration_tests
+
+workflows:
+    main:
+        jobs:
+            - test:
+                  context:
+                      - dockerhub-creds
+                      - snowflake
