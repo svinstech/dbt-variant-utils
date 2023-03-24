@@ -12,7 +12,8 @@
 
     select
     {%- for ic in include_columns %}
-        {{ ic }},
+        {{ ic }}{%- if not loop.last -%},{%- endif -%}
+        {%- if keys|length > 0 -%},{%- endif -%}
     {%- endfor -%}
     {%- for k in keys -%}
     {%- set alias_key = alias_keys[loop.index0] -%}
