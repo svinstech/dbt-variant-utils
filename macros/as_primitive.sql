@@ -16,6 +16,6 @@
             {%- endif -%}
         {%- endif -%}
     {%- else %}
-        null
+        as_varchar({{ c }})
     {%- endif -%}
 {% endmacro %}

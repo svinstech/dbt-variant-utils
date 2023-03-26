@@ -7,7 +7,7 @@
             typeof(parsed) as type, 
             ifnull(len(split(parsed, '.')[1]), 2) as scale
         from " ~ t ~ ", lateral flatten(" ~ c ~ ")
-        qualify row_number() over(partition by key order by type, length(parsed) desc) = 1" -%}
+        qualify row_number() over(partition by key order by iff(type = 'NULL_VALUE', null, type), length(parsed) desc) = 1" -%}
     {%- set keys_query = run_query(query) -%}
     
     {%- if execute -%}
