@@ -1,26 +1,4 @@
-{%- macro as_primitive(t, c, try_casting=False) -%}
-    {% set query = "
-        select
-            ifnull(try_parse_json(" ~ c ~ "), " ~ c ~ ") as parsed,
-            typeof(parsed) as type, 
-            ifnull(len(split(parsed, '.')[1]), 2) as scale 
-        from " ~ t ~ " 
-        -- two scenarios:
-            -- key c exists in the JSON, but the value is null, type = NULL_VALUE
-            -- key c doesn't exists in the JSON, type = null
-        where ifnull(type, 'NULL_VALUE') != 'NULL_VALUE'
-        order by type, length(parsed) desc
-        limit 1" %}
-    {%- set type_query = run_query(query) -%}
-
-    {%- if execute -%}
-    {%- set type = type_query.columns[1][0] -%}
-    {%- set scale = type_query.columns[2][0] -%}
-    {%- else -%}
-    {%- set type = none -%}
-    {%- set scale = none -%}
-    {%- endif -%}
-
+{%- macro as_primitive(type, c, scale, try_casting=False) -%}
     {%- if type and type|lower not in ['null_value'] -%}
         {%- if try_casting %}
             {%- if type|lower == 'decimal' %}
