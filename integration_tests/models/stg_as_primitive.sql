@@ -1,20 +1,32 @@
 select
-    1::variant as same_type,
-    'foo'::variant as with_null,
-    true::variant as different_types,
-    0.567453454::variant as decimal_number,
-    '1.25'::variant as string_number
+    parse_json(
+    '{
+        "same_type": 1,
+        "with_null": "foo",
+        "different_types": true,
+        "decimal_number": 0.567453454,
+        "string_number": "1.25"
+    }'
+    ) as extract
 union all
 select
-    2::variant as same_type,
-    null::variant as with_null,
-    4::variant as different_types,
-    1.05::variant as decimal_number,
-    1::variant as string_number
+    parse_json(
+    '{
+        "same_type": 2,
+        "with_null": null,
+        "different_types": 4,
+        "decimal_number": 1.05,
+        "string_number": 1
+    }'
+    ) as extract
 union all
 select
-    3::variant as same_type,
-    'bar'::variant as with_null,
-    false::variant as different_types,
-    0.4532::variant as decimal_number,
-    1.5::variant as string_number
+    parse_json(
+    '{
+        "same_type": 3,
+        "with_null": "bar",
+        "different_types": false,
+        "decimal_number": 0.4532,
+        "string_number": 1.5
+    }'
+    ) as extract
